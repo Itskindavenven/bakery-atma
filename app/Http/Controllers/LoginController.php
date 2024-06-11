@@ -52,10 +52,6 @@ class LoginController extends Controller
             } else if ($user->id_role == 0) {
                 return redirect()->route('home-owner');
             }
-        }else {
-            // Menyimpan pesan error ke session
-            Session::flash('error', 'Email atau password salah.');
-            return redirect()->back();
         }
     }
     public function actionLogoutPegawai(Request $request)

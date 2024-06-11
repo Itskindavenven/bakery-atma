@@ -335,7 +335,7 @@ class transaksiController extends Controller
                 stock_produk::where('id_produk', $id)->where('tanggal_tersedia', $tanggal_pengambilan)->update(['stok' => $stokBaru]);
             }
 
-            $pesanan = transaksi::where('status', 'Menunggu Diproses')->get();
+            $pesanan = transaksi::where('status', 'Menunggu Dibuat')->get();
             return redirect()->route('transaksi.konfirmasiProses')->with('success', 'Berhasil Konfirmasi Memproses Pesanan');
         } else {
             $customer = Customer::where('id_customer', $pesanan->id_customer)->first();

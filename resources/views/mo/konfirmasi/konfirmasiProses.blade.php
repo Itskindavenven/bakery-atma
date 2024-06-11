@@ -51,7 +51,7 @@
                                 @method('PUT')
                                 <div class="input-group">
                                     <select name="status" required class="form-select">
-                                        <option value="Diproses" {{ old('status') == 'Diproses' ? 'selected' : '' }}>Lanjutkan
+                                        <option value="Diproses" {{ old('status') == 'Menunggu Dibuat' ? 'selected' : '' }}>Lanjutkan
                                             Pesanan</option>
                                         <option value="Batal" {{ old('status') == 'Batal' ? 'selected' : '' }}>Batalkan Pesanan
                                         </option>

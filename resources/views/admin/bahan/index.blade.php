@@ -1,20 +1,23 @@
 @extends('admin.home-admin')
 
 @section('content')
-<div class="container">
-    <div class="btn-container">
-        <a href="{{ route('bahan.create') }}" class="add-event-btn btn btn-block btn-success">
-            <strong class="text-white" style="font-size: 24px;"><span class="plus-logo">+</span> Add Bahan Baku</strong>
+<div class="container mt-4">
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{{ route('bahan.create') }}" class="btn btn-success btn-lg">
+            <strong class="text-white">
+                <span class="mr-2">+</span> Add Bahan Baku
+            </strong>
         </a>
     </div>
-    <form style="margin-top: 20px; float: right; margin-bottom: 20px" action="{{ route('bahan.search') }}" method="GET">
-        <input type="text" name="search" required />
-        <button type="submit" class="add-event-btn btn btn-block btn-success">Search</button>
+
+    <form class="d-flex justify-content-end mb-3" action="{{ route('bahan.search') }}" method="GET">
+        <input type="text" name="search" class="form-control mr-2" placeholder="Search" required />
+        <button type="submit" class="btn btn-success">Search</button>
     </form>
 
     <div class="table-responsive">
-        <table class="table">
-            <thead>
+        <table class="table table-bordered">
+            <thead class="thead-light">
                 <tr>
                     <th scope="col">Nama Bahan Baku</th>
                     <th scope="col">Stock Bahan Baku</th>
@@ -25,28 +28,28 @@
             </thead>
             <tbody>
                 @forelse ($bahan as $item)
-                <tr>
-                    <td><strong>{{ $item->nama}}</strong></td>
-                    <td>{{ $item->stock }}</td> 
-                    <td>{{ $item->satuan }}</td>
-                    <td>Rp{{ number_format($item->harga, 2, ',', '.') }}</td>
-                    <td>
-                        <div class="btn-container">
-                            <a href="{{ route('bahan.edit', $item->id_bahan) }}" class="btn btn-warning">Edit</a>
-                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('bahan.destroy', $item->id_bahan) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete Bahan Baku</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><strong>{{ $item->nama }}</strong></td>
+                        <td>{{ $item->stock }}</td> 
+                        <td>{{ $item->satuan }}</td>
+                        <td>Rp{{ number_format($item->harga, 2, ',', '.') }}</td>
+                        <td>
+                            <div class="d-flex">
+                                <a href="{{ route('bahan.edit', $item->id_bahan) }}" class="btn btn-warning mr-2">Edit</a>
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('bahan.destroy', $item->id_bahan) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete Bahan Baku</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
                 @empty
-                <tr>
-                    <td colspan="4" class="text-center alert alert-danger">
-                        Data bahan baku masih kosong.
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="5" class="text-center alert alert-danger">
+                            Data bahan baku masih kosong.
+                        </td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>

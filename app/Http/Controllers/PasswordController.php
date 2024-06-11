@@ -20,14 +20,14 @@ class PasswordController extends Controller
     }
     public function actionResetCust(Request $request)
     {
-        // try {
-            // $request->validate([
-            //     'email' => 'required|email|exists:customer,email',
-            // ]);
-
+        try {
             $request->validate([
-                'email' => 'required|email',
+                'email' => 'required|email|exists:customer,email',
             ]);
+
+            // $request->validate([
+            //     'email' => 'required|email',
+            // ]);
             
             $customer = Customer::where('email', $request->email)->firstOrFail();
     
@@ -49,17 +49,17 @@ class PasswordController extends Controller
             
             return redirect()->back()->with('success', 'Password reset email sent successfully.');
     
-        // } catch (ValidationException $e) {
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'errors' => $e->errors(),
-        //     ], 422);
-        // } catch (\Exception $e) {
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'message' => 'An unexpected error occurred. Please try again.',
-        //     ], 500);
-        // }
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An unexpected error occurred. Please try again.',
+            ], 500);
+        }
         
     }
     

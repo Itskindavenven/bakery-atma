@@ -15,6 +15,8 @@ class pegawai extends Authenticatable
 
     protected $table = 'pegawai';
     protected $primaryKey = 'id_pegawai';
+
+    public $timestamps = false;
     protected $fillable = [
         'nama_lengkap',
         'tanggal_lahir',

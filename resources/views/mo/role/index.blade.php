@@ -19,7 +19,7 @@
                 @forelse ($role as $item)
                 <tr>
                     <td>{{ $item->id_role }}</td>
-                    <td>{{ $item->nama }}</td>
+                    <td>{{ $item->nama_role }}</td>
                     <td>
                         <div class="d-flex">
                             <a href="{{ route('edit-role', [$item->id_role]) }}" class="btn btn-warning btn-sm me-2">Edit</a>

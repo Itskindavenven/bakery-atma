@@ -23,7 +23,7 @@
                 @forelse ($bahanResep as $detailItem)
                     <tr>
                         <td><strong>{{ $item->produk->nama }}</strong></td>
-                        <td>{{ $detailItem->bahanBaku->nama}}</td>
+                        <td>{{ $detailItem->bahan_baku->nama}}</td>
                         <td>{{ $detailItem->jumlah }}</td>
                         <td>{{ $detailItem->satuan}}</td>
                         <td>

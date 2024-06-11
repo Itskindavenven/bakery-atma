@@ -20,7 +20,6 @@ class customer extends Authenticatable
         'tanggal_lahir',
         'email',
         'username',
-        'email',
         'password',
         'notelp',
         'poin',

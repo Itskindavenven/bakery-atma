@@ -11,7 +11,7 @@ class detailPemakaianBahanBaku extends Model
 
     protected $fillable = [
         'id_pemakaian',
-        'id_bahan_baku',
+        'id_bahan',
         'kuantitas',
     ];
 

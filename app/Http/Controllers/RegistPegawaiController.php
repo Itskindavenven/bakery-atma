@@ -79,12 +79,12 @@ class RegistPegawaiController extends Controller
     
             // Return success response
             Session::flash('message', 'Link verifikasi telah dikirim ke email anda. Silahkan cek email anda untuk mengaktifkan akun.');
-            return route('index-pegawai');
+            return redirect('register-pegawai');
     
         } catch (\Exception $e) {
             // Handle unexpected errors
             Session::flash('message', 'Terjadi kesalahan saat proses pendaftaran. Silakan coba lagi.');
-            return redirect('register');
+            return redirect('index-pegawai');
         }
     }
     public function verify($verify_key){

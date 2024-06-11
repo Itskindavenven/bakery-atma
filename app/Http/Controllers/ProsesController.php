@@ -69,11 +69,11 @@ class prosesController extends Controller
 
                 foreach ($bahanResep as $r) {
                     $stokBahan = bahan_baku::where('id_bahan', $r->id_bahan)->value('stock');
-                    $bahanDipakai = $r->kuantitas * $jumlah_pesanan;
-                    $sisaBahan = $stokBahan - ($r->kuantitas * $jumlah_pesanan);
+                    $bahanDipakai = $r->jumlah * $jumlah_pesanan;
+                    $sisaBahan = $stokBahan - ($r->jumlah * $jumlah_pesanan);
 
                     if ($sisaBahan <= 0) {
-                        $bahanKurang[$r->bahanBaku->nama_bahan_baku] = abs($sisaBahan);
+                        $bahanKurang[$r->bahan_baku->nama] = abs($sisaBahan);
                         $pesanan->status = 'Menunggu Dibuat';
                         $pesanan->save();
 
@@ -87,14 +87,14 @@ class prosesController extends Controller
 
                         if (detailPemakaianBahanBaku::where('id_bahan', $r->id_bahan)->exists()) {
 
-                            $bahanDipakai += detailPemakaianBahanBaku::where('id_bahan_baku', $r->id_bahan)->sum('kuantitas');
+                            $bahanDipakai += detailPemakaianBahanBaku::where('id_bahan', $r->id_bahan)->sum('kuantitas');
 
-                            detailPemakaianBahanBaku::where('id_bahan_baku', $r->id_bahan)
+                            detailPemakaianBahanBaku::where('id_bahan', $r->id_bahan)
                                 ->update(['kuantitas' => $bahanDipakai]);
                         } else {
                             $detailPemakaianBahanBaku = new detailPemakaianBahanBaku();
                             $detailPemakaianBahanBaku->id_pemakaian = $pemakaianBahan->id_pemakaian;
-                            $detailPemakaianBahanBaku->id_bahan_baku = $r->id_bahan;
+                            $detailPemakaianBahanBaku->id_bahan = $r->id_bahan;
                             $detailPemakaianBahanBaku->kuantitas = $bahanDipakai;
                             $detailPemakaianBahanBaku->save();
                         }
@@ -121,7 +121,7 @@ class prosesController extends Controller
                     $message = rtrim($message, ', ') . '.';
                 }
             }
-            $pesanan = transaksi::with(['customer', 'produk', 'keranjang', 'resep', 'pembayaran'])->where('status', 'Menunggu Diproses')->get();
+            $pesanan = transaksi::with(['customer', 'produk', 'keranjang', 'resep', 'pembayaran'])->where('status', 'Menunggu Dibuat')->get();
             return redirect()->route('proses.pesananHarian')->with('success', $message);
         }
     }
